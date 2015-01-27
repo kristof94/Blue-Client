@@ -32,7 +32,7 @@ public class MainActivity extends Activity {
 
 	@Override
 	protected void onResume() {
-		b.get_paired();
+		b.set_paired("RISTOF");
 		b.create_socket();
 		super.onResume();
 	}
