@@ -23,12 +23,12 @@ public class Bluetooth extends Thread {
 		}
 	}
 
-	public void get_paired(){
+	public void set_device_paired(String name){
 
 		Set<BluetoothDevice> pairedDevices = adapter.getBondedDevices();
 		if (pairedDevices.size() > 0) {
 			for (BluetoothDevice DEVICE : pairedDevices) {
-				if(DEVICE.getName().contains("RISTOF"))
+				if(DEVICE.getName().contains(name))
 				{
 					device = DEVICE;
 					break;
