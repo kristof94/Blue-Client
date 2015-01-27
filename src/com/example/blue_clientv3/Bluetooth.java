@@ -38,7 +38,7 @@ public class Bluetooth extends Thread {
 	}
 
 	public void create_socket(){
-		BluetoothSocket tmp=null; 
+		BluetoothSocket tmp = null; 
 		try {
 			tmp = device.createRfcommSocketToServiceRecord(device.getUuids()[4].getUuid());
 		} catch (IOException e) { }
