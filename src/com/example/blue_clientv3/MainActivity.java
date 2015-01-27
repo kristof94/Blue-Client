@@ -18,6 +18,8 @@ public class MainActivity extends Activity {
 	public void seConnecter(View v){
 		Log.d(tag, "se connecter");
 		b.run();
+		if(b.get_ready)
+			;//toast ok +start another activity with black screen
 	}
 	
 	public void Send(View v){
