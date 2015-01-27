@@ -64,8 +64,6 @@ public class Bluetooth extends Thread {
 			return;
 		}
 		Log.d("blue", "Connexion établie");
-		// Do work to manage the connection (in a separate thread)
-		//make a toast here
 		ready = true;
 		super.run();
 	}
