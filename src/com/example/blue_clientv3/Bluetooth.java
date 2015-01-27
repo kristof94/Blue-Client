@@ -14,6 +14,7 @@ public class Bluetooth extends Thread {
 	BluetoothDevice device;
 	BluetoothSocket socket;
 	final static int REQUEST_ENABLE_BT = 1;
+	boolean ready = false;
 	
 	public Bluetooth() {
 	//Test if bluetooth is enabled ? No: power on bluetooth
@@ -65,9 +66,14 @@ public class Bluetooth extends Thread {
 		Log.d("blue", "Connexion établie");
 		// Do work to manage the connection (in a separate thread)
 		//make a toast here
+		ready = true;
 		super.run();
 	}
 
+	public boolean get_ready(){
+		return ready;
+	}
+	
 	public void cancel() {
 		try {
 			socket.close();
