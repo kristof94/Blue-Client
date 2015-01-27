@@ -44,7 +44,11 @@ public class Bluetooth extends Thread {
 		} catch (IOException e) { }
 		socket = tmp;
 	}
-
+	
+	public BluetoothSocket get_socket(){
+		return socket;
+	}
+	
 	@Override
 	public void run() {
 		try {
