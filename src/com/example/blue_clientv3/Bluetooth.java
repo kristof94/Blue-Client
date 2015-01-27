@@ -13,10 +13,14 @@ public class Bluetooth extends Thread {
 	BluetoothAdapter adapter;
 	BluetoothDevice device;
 	BluetoothSocket socket;
-
+	final static int REQUEST_ENABLE_BT = 1;
+	
 	public Bluetooth() {
-
-		adapter = BluetoothAdapter.getDefaultAdapter();
+	//Test if bluetooth is enabled ? No: power on bluetooth
+		if (!mBluetoothAdapter.isEnabled()) {
+    			Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+    			startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
+		}
 	}
 
 	public void get_paired(){
@@ -54,7 +58,7 @@ public class Bluetooth extends Thread {
 			} catch (IOException closeException) { }
 			return;
 		}
-		Log.d("blue", "Connexion établie");
+		Log.d("blue", "Connexion Ã©tablie");
 		// Do work to manage the connection (in a separate thread)
 		super.run();
 	}
