@@ -1,4 +1,4 @@
-package com.example.blue_client.v2;
+package com.example.blue_clientv3;
 
 import java.io.IOException;
 import java.util.Set;
@@ -13,17 +13,15 @@ public class Bluetooth extends Thread {
 	BluetoothAdapter adapter;
 	BluetoothDevice device;
 	BluetoothSocket socket;
-	final static int REQUEST_ENABLE_BT = 1;
 	boolean ready = false;
 	
 	public Bluetooth() {
-	//Test if bluetooth is enabled ? No: power on bluetooth
-		if (!mBluetoothAdapter.isEnabled()) {
-    			Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-    			startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
+		adapter =  BluetoothAdapter.getDefaultAdapter();
+		if (adapter == null) {
+		    // Device does not support Bluetooth
 		}
 	}
-
+	
 	public void set_device_paired(String name){
 	// Get the bluetooth device server with the name. It must be paired with this client.
 		Set<BluetoothDevice> pairedDevices = adapter.getBondedDevices(); //List of all paired devices.
@@ -50,6 +48,10 @@ public class Bluetooth extends Thread {
 		return socket;
 	}
 	
+	public BluetoothAdapter getAdapter() {
+		return adapter;
+	}
+	
 	@Override
 	public void run() {
 		try {
@@ -63,7 +65,7 @@ public class Bluetooth extends Thread {
 			} catch (IOException closeException) { }
 			return;
 		}
-		Log.d("blue", "Connexion Ã©tablie");
+		Log.d("blue", "Connexion établie");
 		ready = true;
 		super.run();
 	}
@@ -77,4 +79,5 @@ public class Bluetooth extends Thread {
 			socket.close();
 		} catch (IOException e) { }
 	}
+
 }
