@@ -24,9 +24,9 @@ public class Bluetooth extends Thread {
 	}
 
 	public void set_device_paired(String name){
-
-		Set<BluetoothDevice> pairedDevices = adapter.getBondedDevices();
-		if (pairedDevices.size() > 0) {
+	// Get the bluetooth device server with the name. It must be paired with this client.
+		Set<BluetoothDevice> pairedDevices = adapter.getBondedDevices(); //List of all paired devices.
+		if (pairedDevices.size() > 0) {					//Check if paired device exist
 			for (BluetoothDevice DEVICE : pairedDevices) {
 				if(DEVICE.getName().contains(name))
 				{
