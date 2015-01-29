@@ -25,11 +25,11 @@ public class MainActivity extends Activity {
 
 	public void seConnecter(View v){
 		b.set_device_paired("RISTOF");
-		b.create_socket();
+		/*b.create_socket();
 		Log.d(tag, "se connecter");
 		b.run();
 		if(b.get_ready())
-			c = new Client(b.get_socket());//toast ok +start another activity with black screen
+			c = new Client(b.get_socket());//toast ok +start another activity with black screen*/
 	}
 
 	public void Send(View v){
