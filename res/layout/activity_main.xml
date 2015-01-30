@@ -2,36 +2,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="${relativePackage}.${activityClass}" >
+    tools:context="${relativePackage}.${activityClass}"
+    > 
  <Button
-        android:id="@+id/button1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="73dp"
-        android:text="Connect"
-        android:onClick="seConnecter" />
+     android:id="@+id/button1"
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:layout_alignParentLeft="true"
+     android:layout_alignParentTop="true"
+     android:onClick="seConnecter"
+     android:text="Connect" />
 
-    <EditText
-        android:id="@+id/editText1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/button1"
-        android:layout_marginTop="123dp"
-        android:layout_toLeftOf="@+id/button1"
-        android:ems="10">
-
-        <requestFocus />
-    </EditText>
-
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/editText1"
-        android:layout_marginTop="15dp"
-        android:layout_toRightOf="@+id/button1"
-        android:text="Send" 
-        android:onClick="Send"/>
 </RelativeLayout>

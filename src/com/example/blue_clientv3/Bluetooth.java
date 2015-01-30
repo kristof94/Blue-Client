@@ -2,7 +2,6 @@ package com.example.blue_clientv3;
 
 import java.io.IOException;
 import java.util.Set;
-import java.util.UUID;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -34,21 +33,22 @@ public class Bluetooth extends Thread {
 					device = DEVICE;
 					for(int i =0;i<device.getUuids().length;i++)
 						Log.d("blue", String.valueOf( device.getUuids()[i].getUuid() ));
-
+					
 					break;
 				}
 			}
 		}		
 	}
-int i = 0;
 	public void create_socket(){
 		BluetoothSocket tmp = null; 
 		try {
-			tmp = device.createRfcommSocketToServiceRecord(device.getUuids()[i].getUuid()) ;
-			Log.d("blue",""+tmp);
-			i++;
-			if(i==device.getUuids().length)
-				i=0;
+			tmp = device.createRfcommSocketToServiceRecord(device.getUuids()[device.getUuids().length-1].getUuid()) ;
+			boolean v = true;
+
+			if(device.setPairingConfirmation(v))
+				Log.d("blue","CONFIRME");
+			else
+				Log.d("blue","NOT PAIRED");
 		} catch (IOException e) { }
 		socket = tmp;
 	}
