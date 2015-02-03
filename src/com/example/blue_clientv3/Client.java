@@ -11,7 +11,9 @@ public class Client extends Thread{
 	BluetoothSocket socket;
 	DataOutputStream out;
 	ByteBuffer tab = ByteBuffer.allocate(Float.SIZE);
+	ByteBuffer tab2 = ByteBuffer.allocate(8);
 
+	boolean v =false;
 	public Client(BluetoothSocket s)
 	{
 		socket = s;
@@ -19,6 +21,7 @@ public class Client extends Thread{
 
 		try {
 			out = new DataOutputStream(socket.getOutputStream());
+			v=true;
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -34,13 +37,12 @@ public class Client extends Thread{
 		super.run();
 	}
 
-	
+
 
 	public void close(){
 
-		try {
-			out.writeFloat(-1);
-			out.flush();
+		try{
+		write(-6);
 			out.close();
 			socket.close();
 		} catch (IOException e) {
@@ -49,8 +51,21 @@ public class Client extends Thread{
 		}
 	}
 
-	public void write(float x, float y) {
+	public void write(int x) {
 		
+			tab2.asIntBuffer().put((int) x );
+			try {
+				out.write(tab2.array());
+				out.flush();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	
+
+	public void write(float x, float y) {
+
 		tab.asIntBuffer().put((int) x );
 		tab.asIntBuffer().put(4,(int) y);
 		try {
@@ -60,6 +75,6 @@ public class Client extends Thread{
 			e.printStackTrace();
 		}
 
-		
+
 	}
 }

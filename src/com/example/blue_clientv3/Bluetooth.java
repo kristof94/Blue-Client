@@ -8,7 +8,7 @@ import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.util.Log;
 
-public class Bluetooth extends Thread {
+public class Bluetooth extends Thread implements IBuetooth {
 
 	BluetoothAdapter adapter;
 	BluetoothDevice device;
@@ -21,9 +21,9 @@ public class Bluetooth extends Thread {
 		    // Device does not support Bluetooth
 		}
 	}
-	
-	public void set_device_paired(String name){
-	// Get the bluetooth device server with the name. It must be paired with this client.
+
+	@Override
+	public void set_paired_device(String name) {
 		Set<BluetoothDevice> pairedDevices = adapter.getBondedDevices(); //List of all paired devices.
 		if (pairedDevices.size() > 0) {					//Check if paired device exist
 			for (BluetoothDevice DEVICE : pairedDevices) {
@@ -32,33 +32,50 @@ public class Bluetooth extends Thread {
 					
 					device = DEVICE;
 					for(int i =0;i<device.getUuids().length;i++)
-						Log.d("blue", String.valueOf( device.getUuids()[i].getUuid() ));
+						{
+							Log.d("blue", String.valueOf( device.getUuids()[i].getUuid()));
+							
+						}
 					
 					break;
 				}
 			}
 		}		
+		
 	}
-	public void create_socket(){
+
+	@Override
+	public void create_scoket() {
 		BluetoothSocket tmp = null; 
 		try {
-			tmp = device.createRfcommSocketToServiceRecord(device.getUuids()[device.getUuids().length-1].getUuid()) ;
+					tmp = device.createRfcommSocketToServiceRecord(device.getUuids()[0].getUuid()) ;
 			boolean v = true;
-
+			
 			if(device.setPairingConfirmation(v))
 				Log.d("blue","CONFIRME");
 			else
 				Log.d("blue","NOT PAIRED");
 		} catch (IOException e) { }
 		socket = tmp;
+		
 	}
-	
-	public BluetoothSocket get_socket(){
+
+	@Override
+	public Object get_socket() {
 		return socket;
+		
 	}
-	
-	public BluetoothAdapter getAdapter() {
+
+	@Override
+	public Object getAdapter() {
 		return adapter;
+		
+	}
+
+	@Override
+	public boolean get_ready() {
+		return ready;
+		
 	}
 	
 	@Override
@@ -74,13 +91,9 @@ public class Bluetooth extends Thread {
 			} catch (IOException closeException) { }
 			return;
 		}
-		Log.d("blue", "Connexion établie");
+		Log.d("blue", "Connexion ï¿½tablie");
 		ready = true;
 		super.run();
-	}
-
-	public boolean get_ready(){
-		return ready;
 	}
 	
 	public void cancel() {
@@ -88,5 +101,4 @@ public class Bluetooth extends Thread {
 			socket.close();
 		} catch (IOException e) { }
 	}
-
 }
